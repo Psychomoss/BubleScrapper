@@ -1,0 +1,30 @@
+{
+    "name": "BubleScrapper",
+    "version": "0.0.1",
+    "type": "module",
+    "description": "This is an example of a Crawlee project.",
+    "dependencies": {
+        "crawlee": "^3.0.0",
+        "moment": "^2.30.1",
+        "postgres": "^3.4.5"
+    },
+    "devDependencies": {
+        "@apify/tsconfig": "^0.1.0",
+        "@biomejs/biome": "1.9.4",
+        "@types/node": "^22.0.0",
+        "dotenv": "^16.4.7",
+        "tsx": "^4.4.0",
+        "typescript": "~5.7.0"
+    },
+    "scripts": {
+        "start": "npm run start:dev",
+        "start:prod": "node dist/main.js",
+        "start:dev": "tsx src/main.ts",
+        "build": "tsc",
+        "test": "echo \"Error: oops, the actor has no tests yet, sad!\" && exit 1",
+        "format": "npx biome format --write src",
+        "lint": "npx biome lint --write src"
+    },
+    "author": "It's not you it's me",
+    "license": "ISC"
+}
