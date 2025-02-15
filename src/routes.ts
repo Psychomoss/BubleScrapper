@@ -23,7 +23,10 @@ router.addDefaultHandler(
 				".product-info__statistics__i-text:eq(1)",
 			).text();
 			let baseDate = moment();
-			if (posted_at_text.includes("Bugün") || posted_at_text.includes("Dünən")) {
+			if (
+				posted_at_text.includes("Bugün") ||
+				posted_at_text.includes("Dünən")
+			) {
 				const [dayPart, timePart] = posted_at_text.split(", ");
 				const timeMoment = moment(timePart, "HH:mm");
 
@@ -41,6 +44,26 @@ router.addDefaultHandler(
 				baseDate = moment(posted_at_text, "DD MMMM YYYY", "az");
 			}
 			const posted_at = baseDate.toISOString();
+			const meta_data = $(".product-properties__i")
+				.map((_, el) => {
+					const key = $(el).find(".product-properties__i-name").text().trim();
+
+					const value = $(el)
+						.find(".product-properties__i-value")
+						.text()
+						.trim();
+
+					return { key, value };
+				})
+				.get()
+				.reduce(
+					(acc, { key, value }) => {
+						acc[key] = value;
+						return acc;
+					},
+					{} as Record<string, string>,
+				);
+
 			log.info(`${title}`, { url: request.loadedUrl });
 			await pushData({
 				url: request.loadedUrl,
@@ -50,6 +73,7 @@ router.addDefaultHandler(
 				category_id,
 				subcategory_id,
 				posted_at,
+				meta_data,
 			});
 		} else if (request.label === "pagination") {
 			log.info(`enqueueing new URLs ${request.url}`);

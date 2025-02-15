@@ -5,7 +5,7 @@ dotenv.config();
 
 const connectionString = process.env.DATABASE_URL;
 if (!connectionString) {
-    throw new Error("Please provide a DATABASE_URL");
+	throw new Error("Please provide a DATABASE_URL");
 }
 const sql = postgres(connectionString);
 
